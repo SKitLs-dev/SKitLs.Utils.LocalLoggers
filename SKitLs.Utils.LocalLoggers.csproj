@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>$(AssemblyName)</Title>
+    <Description>Offers an advanced logging system that streamlines the logging process and simplifies debugging by using localized debug messages.</Description>
+    <Copyright>Copyright (C) Sargeras02 2023</Copyright>
+    <PackageProjectUrl>https://github.com/Sargeras02/SKitLs.Utils.LocalLoggers.git</PackageProjectUrl>
+    <PackageIcon>libIcon_loclog.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>Logging, DebuggingTools, Localization, Internationalization, Multilingual, Globalization</PackageTags>
+    <PackageReleaseNotes>README markup fix.</PackageReleaseNotes>
+    <AssemblyVersion>1.2.6.5</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+    <Version>$(AssemblyVersion)</Version>
+    <Authors>Sargeras02, SKit-Labs</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\libIcon_loclog.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SKitLs.Utils.Localizations" Version="2.0.0" />
+    <PackageReference Include="SKitLs.Utils.Loggers" Version="1.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
