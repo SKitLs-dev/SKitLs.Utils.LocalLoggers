@@ -1,4 +1,5 @@
-# SKitLs.Utils.LocalLoggers
+# SKitLs.Utils.LocalLoggers ![GitHub](https://img.shields.io/github/license/Sargeras02/SKitLs.Utils.LocalLoggers) ![Nuget](https://img.shields.io/nuget/v/SKitLs.Utils.LocalLoggers) [![CodeFactor](https://www.codefactor.io/repository/github/sargeras02/skitls.utils.localloggers/badge)](https://www.codefactor.io/repository/github/sargeras02/skitls.utils.localloggers) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Sargeras02/SKitLs.Utils.LocalLoggers)
+
 
 Offers an advanced logging system that streamlines the logging process and simplifies debugging by using localized debug messages.
 
