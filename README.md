@@ -28,8 +28,8 @@ facilitating effective debugging.
 
 Before running the project, please ensure that you have the following dependencies installed and properly configured in your development environment.
 
-- SKitLs.Utils.Localizations 2.0.0 or higher
-- SKitLs.Utils.Loggers 1.2.1 or higher
+- SKitLs.Utils.Localizations 2.2.0 or higher
+- SKitLs.Utils.Loggers 1.4.0 or higher
 
 ### Installation
 
