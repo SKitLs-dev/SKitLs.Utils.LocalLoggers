@@ -1,5 +1,5 @@
-﻿using SKitLs.Utils.Localizations.Prototype;
-using SKitLs.Utils.LocalLoggers.Prototype;
+﻿using SKitLs.Utils.Localizations.Languages;
+using SKitLs.Utils.Localizations.Localizators;
 using SKitLs.Utils.Loggers.Model;
 using SKitLs.Utils.Loggers.Prototype;
 
@@ -14,80 +14,46 @@ namespace SKitLs.Utils.LocalLoggers.Model
     /// <see cref="ILocalizedLogger"/> interface, this class enables to log localized messages efficiently in debugging scenarios.
     /// </para>
     /// </summary>
-    public class LocalizedConsoleLogger : DefaultConsoleLogger, ILocalizedLogger
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="LocalizedConsoleLogger"/> class with the specified localization service.
+    /// </remarks>
+    /// <param name="localizator">Localization service that provides localized resources.</param>
+    /// <param name="resolveDefault">Specifies whether to attempt resolving the string in the default language if not found in the specified language.</param>
+    public class LocalizedConsoleLogger(ILocalizator localizator, bool resolveDefault = true) : DefaultConsoleLogger, ILocalizedLogger
     {
         /// <summary>
-        /// Represents the default language key used for localization within the logger.
-        /// It allows developers to set a default language for log messages, ensuring a consistent localization approach
-        /// across the application.
+        /// Gets or sets a value indicating whether to attempt resolving the string in the default language if not found in the specified language.
         /// </summary>
-        public LangKey LoggerLanguage { get; set; }
-        /// <summary>
-        /// Denotes the specialized service responsible for handling the localization process and resolving localized strings.
-        /// </summary>
-        public ILocalizator Localizator { get; private set; }
+        public bool ResolveDefaultLanguage { get; set; } = resolveDefault;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizedConsoleLogger"/> class with the specified localization service.
-        /// </summary>
-        /// <param name="localizator">Localization service that provides localized resources.</param>
-        public LocalizedConsoleLogger(ILocalizator localizator) => Localizator = localizator;
+        /// <inheritdoc/>
+        public LanguageCode LoggerLanguage { get; set; }
 
-        /// <summary>
-        /// Logs localized custom message, resolving it by its <paramref name="mesKey"/>, with provided formatting rule <paramref name="logType"/>.
-        /// </summary>
-        /// <param name="mesKey">Message's key. Used to resolve message and log it.</param>
-        /// <param name="logType">Log type. Defines formatting rules.</param>
-        /// <param name="standsAlone">Determines whether message should be logged as a stand-alone one
-        /// (ex: NewLine for Console).</param>
-        /// <param name="format">Optional. An array of strings to be formatted into the resolved localized string.</param>
+        /// <inheritdoc/>
+        public ILocalizator Localizator { get; private set; } = localizator;
+
+        /// <inheritdoc/>
         public void LLog(string mesKey, LogType logType = LogType.Message, bool standsAlone = true, params string?[] format)
-            => Log(Localizator.ResolveString(LoggerLanguage, mesKey, format), logType, standsAlone);
+            => Log(Localizator.ResolveStringOrFallback(LoggerLanguage, mesKey, ResolveDefaultLanguage, format), logType, standsAlone);
 
-        /// <summary>
-        /// Logs localized custom message, resolving it by its <paramref name="mesKey"/>, as <see cref="LogType.Error"/> one.
-        /// </summary>
-        /// <param name="mesKey">Message's key. Used to resolve message and log it.</param>
-        /// <param name="standsAlone">Determines whether message should be logged as a stand-alone one
-        /// (ex: NewLine for Console).</param>
-        /// <param name="format">Optional. An array of strings to be formatted into the resolved localized string.</param>
+        /// <inheritdoc/>
         public void LError(string mesKey, bool standsAlone = true, params string?[] format)
-            => Error(Localizator.ResolveString(LoggerLanguage, mesKey, format), standsAlone);
-        /// <summary>
-        /// Logs localized custom message, resolving it by its <paramref name="mesKey"/>, as <see cref="LogType.Warning"/> one.
-        /// </summary>
-        /// <param name="mesKey">Message's key. Used to resolve message and log it.</param>
-        /// <param name="standsAlone">Determines whether message should be logged as a stand-alone one
-        /// (ex: NewLine for Console).</param>
-        /// <param name="format">Optional. An array of strings to be formatted into the resolved localized string.</param>
+            => Error(Localizator.ResolveStringOrFallback(LoggerLanguage, mesKey, ResolveDefaultLanguage, format), standsAlone);
+
+        /// <inheritdoc/>
         public void LWarn(string mesKey, bool standsAlone = true, params string?[] format)
-            => Warn(Localizator.ResolveString(LoggerLanguage, mesKey, format), standsAlone);
-        /// <summary>
-        /// Logs localized custom message, resolving it by its <paramref name="mesKey"/>, as <see cref="LogType.Successful"/> one.
-        /// </summary>
-        /// <param name="mesKey">Message's key. Used to resolve message and log it.</param>
-        /// <param name="standsAlone">Determines whether message should be logged as a stand-alone one
-        /// (ex: NewLine for Console).</param>
-        /// <param name="format">Optional. An array of strings to be formatted into the resolved localized string.</param>
+            => Warn(Localizator.ResolveStringOrFallback(LoggerLanguage, mesKey, ResolveDefaultLanguage, format), standsAlone);
+
+        /// <inheritdoc/>
         public void LSuccess(string mesKey, bool standsAlone = true, params string?[] format)
-            => Success(Localizator.ResolveString(LoggerLanguage, mesKey, format), standsAlone);
-        /// <summary>
-        /// Logs localized custom message, resolving it by its <paramref name="mesKey"/>, as <see cref="LogType.System"/> one.
-        /// </summary>
-        /// <param name="mesKey">Message's key. Used to resolve message and log it.</param>
-        /// <param name="standsAlone">Determines whether message should be logged as a stand-alone one
-        /// (ex: NewLine for Console).</param>
-        /// <param name="format">Optional. An array of strings to be formatted into the resolved localized string.</param>
+            => Success(Localizator.ResolveStringOrFallback(LoggerLanguage, mesKey, ResolveDefaultLanguage, format), standsAlone);
+
+        /// <inheritdoc/>
         public void LSystem(string mesKey, bool standsAlone = true, params string?[] format)
-            => System(Localizator.ResolveString(LoggerLanguage, mesKey, format), standsAlone);
-        /// <summary>
-        /// Logs localized custom message, resolving it by its <paramref name="mesKey"/>, as <see cref="LogType.Information"/> one.
-        /// </summary>
-        /// <param name="mesKey">Message's key. Used to resolve message and log it.</param>
-        /// <param name="standsAlone">Determines whether message should be logged as a stand-alone one
-        /// (ex: NewLine for Console).</param>
-        /// <param name="format">Optional. An array of strings to be formatted into the resolved localized string.</param>
+            => System(Localizator.ResolveStringOrFallback(LoggerLanguage, mesKey, ResolveDefaultLanguage, format), standsAlone);
+
+        /// <inheritdoc/>
         public void LInform(string mesKey, bool standsAlone = true, params string?[] format)
-            => Inform(Localizator.ResolveString(LoggerLanguage, mesKey, format), standsAlone);
+            => Inform(Localizator.ResolveStringOrFallback(LoggerLanguage, mesKey, ResolveDefaultLanguage, format), standsAlone);
     }
 }

@@ -1,26 +1,12 @@
-# SKitLs.Utils.LocalLoggers ![GitHub](https://img.shields.io/github/license/Sargeras02/SKitLs.Utils.LocalLoggers) ![Nuget](https://img.shields.io/nuget/v/SKitLs.Utils.LocalLoggers) [![CodeFactor](https://www.codefactor.io/repository/github/sargeras02/skitls.utils.localloggers/badge)](https://www.codefactor.io/repository/github/sargeras02/skitls.utils.localloggers) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Sargeras02/SKitLs.Utils.LocalLoggers)
-
+# SKitLs.Utils.LocalLoggers ![GitHub](https://img.shields.io/github/license/Sargeras02/SKitLs.Utils.LocalLoggers) ![Nuget](https://img.shields.io/nuget/v/SKitLs.Utils.LocalLoggers) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Sargeras02/SKitLs.Utils.LocalLoggers) [![CodeFactor](https://www.codefactor.io/repository/github/skitls-dev/skitls.utils.localloggers/badge)](https://www.codefactor.io/repository/github/skitls-dev/skitls.utils.localloggers)
 
 Offers an advanced logging system that streamlines the logging process and simplifies debugging by using localized debug messages.
 
-## Description
 
-The project incorporates the robust localization capabilities of the SKitLs.Utils.Localization project, empowering developers to
-seamlessly translate and adapt strings for diverse language contexts.
+## Usage
 
-1. `interface ILocalizedLogger`:
+For documentation and usage examples [see wiki](https://github.com/SKitLs-dev/SKitLs.Utils.LocalLoggers/wiki).
 
-    By implementing the `ILocalizedLogger` interface, developers gain access to specialized localization services, enabling the logging of
-    localized messages during the debugging process.
-
-2. `class LocalizedConsoleLogger`
-
-    With the integrated `LocalizedConsoleLogger`, developers can easily log messages of different types, including errors, warnings,
-    successes, and system-related messages. 
-
-
-The logging system ensures clarity and consistency in log outputs, enhancing the development workflow and
-facilitating effective debugging.
 
 ## Setup
 
@@ -28,8 +14,8 @@ facilitating effective debugging.
 
 Before running the project, please ensure that you have the following dependencies installed and properly configured in your development environment.
 
-- SKitLs.Utils.Localizations 2.2.0 or higher
-- SKitLs.Utils.Loggers 1.4.0 or higher
+- SKitLs.Utils.Localizations
+- SKitLs.Utils.Loggers
 
 ### Installation
 
@@ -59,7 +45,7 @@ Before running the project, please ensure that you have the following dependenci
 
     To install the project by downloading the source code and directly linking it to your project, adhere to the following steps:
 
-    1. Visit the project repository on [GitHub](https://github.com/Sargeras02/SKitLs.Utils.LocalLoggers.git)
+    1. Visit the project repository on [GitHub](https://github.com/SKitLs-dev/SKitLs.Utils.LocalLoggers.git)
     2. Click on the "Code" button and select "Download ZIP" to download the project's source code as a zip archive.
     3. Extract the downloaded zip archive to the desired location on your local machine.
     4. Open your existing project or create a new one in your IDE.
@@ -70,74 +56,6 @@ Before running the project, please ensure that you have the following dependenci
 Please note that each method may have specific requirements or configurations that need to be followed for successful installation.
 Refer to the project's documentation for any additional steps or considerations.
 
-## Usage
-
-### Enhancing Console-Based Logging:
-
-For Console-based projects, you can take advantage of the `LocalizedConsoleLogger : DefaultConsoleLogger` class:
-
-1. Create locals JSON
-
-    "path/to/locals/en.name.json"
-    ```JSON
-    {
-        "local.KeyNotDefined": "String with a key {1} is not defined in language {0} ({2}). Format params: ",
-        "error": "Error! {0}.",
-        "welcome_message": "Welcome to the project!",
-        "greeting": "Welcome, {0}!",
-        "farewell_message": "See you soon!"
-    }
-    ```
-
-2. Initialize the LocalizedConsoleLogger:
-
-    ```C#
-    ILocalizator localizator = new DefaultLocalizator("path/to/locals"); // "resources/locals" by default
-    ILogger logger = new LocalizedConsoleLogger(localizator);
-    ```
-
-3. Logging Messages to the Console:
-
-    ```C#
-    logger.LLog("greeting", LogType.Info, "Mister Awesome");
-    // -> [>] Welcome, Mister Awesome!
-    logger.LWarn("welcome_message");
-    // -> [!] Welcome to the project!
-    logger.LError("error", "ErrorFormatMessage");
-    // -> [X] Error! ErrorFormatMessage.
-
-    // Still able to use DefaultConsoleLogger methods
-    logger.Warn("welcome_message");
-    // -> [!] welcome_message
-    ```
-
-### Customizing Logging Behavior:
-
-If you need to customize the logging behavior based on your project's specific requirements,
-implement the ILogger interface in a custom class:
-
-1. Create a Custom Logger Class:
-
-    ```C#
-    public class CustomLocalLogger : ILocalizedLogger
-    {
-        // Implement the methods from the ILogger interface as per your custom logging needs.
-        // Example: You can log messages to a file, database, or an external service.
-    }
-    ```
-2. Initialize Your Custom Logger:
-
-    ```C#
-    ILogger logger = new CustomLogger(); // Use your custom logger to handle logging in your project.
-    ```
-
-3. Log Your Messages:
-
-    ```C#
-    logger.LLog("infokey", LogType.Info);
-    logger.LWarn("warningkey");
-    logger.LError("errorkey");
-    ```
 
 ## Contributors
 
@@ -149,24 +67,27 @@ Your participation will be greatly appreciated in moving the project forward.
 
 Thank you for considering contributing to our project.
 
+
 ## License
 
 This project is distributed under the terms of the MIT License.
 
-Copyright (C) Sargeras02 2023
+Copyright (C) 2023-2024, SKitLs
+
 
 ## Developer contact
 
 For any issues related to the project, please feel free to reach out to us through the project's GitHub page.
 We welcome bug reports, feedback, and any other inquiries that can help us improve the project.
 
-You can also contact the project owner directly via their GitHub profile at the following [link](https://github.com/Sargeras02).
+You can also contact the project owner directly via their GitHub profile at the [following link](https://github.com/SKitLs-dev) or email: skitlsdev@gmail.com
 
 Your collaboration and support are highly appreciated, and we will do our best to address any concerns or questions promptly and professionally.
 Thank you for your interest in our project.
 
+
 ## Notes
 
-This project is utilized by a larger and well-established project, which can be found at the following [link](https://github.com/Sargeras02/SKitLs.Bots.Telegram.git).
+This project is utilized by a larger and well-established project, which can be found at the [following link](https://github.com/Sargeras02/SKitLs.Bots.Telegram.git).
 
 Thank you for choosing our solution for your needs, and we look forward to contributing to your project's success.
